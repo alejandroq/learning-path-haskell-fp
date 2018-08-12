@@ -1,0 +1,181 @@
+➜  Primitives stack ghci
+
+Warning: No local targets specified, so ghci will not use any options from your package.yaml / *.cabal files.
+
+         Potential ways to resolve this:
+         * If you want to use the package.yaml / *.cabal package in the current directory, use stack init to create a new stack.yaml.
+         * Add to the 'packages' field of /Users/alejandroquesada/.stack/global-project/stack.yaml
+
+Configuring GHCi with the following packages:
+GHCi, version 8.2.2: http://www.haskell.org/ghc/  :? for help
+Loaded GHCi configuration from /private/var/folders/9m/g9xd77_96bg_zbxnmpwwr1b40000gn/T/ghci13180/ghci-script
+Prelude> a :: Int; a = 1234
+Prelude> :sprint a
+a = _
+Prelude> :type a
+a :: Int
+Prelude> a
+1234
+Prelude> :sprint a
+a = 1234
+Prelude> b :: Integer; b = 2 ^ 70
+Prelude> :sprint b
+b = _
+Prelude> :type b
+b :: Integer
+Prelude> b
+1180591620717411303424
+Prelude> :sprint b
+b = 1180591620717411303424
+Prelude> import Data.List
+Prelude Data.List> :type intercalate
+intercalate :: [a] -> [[a]] -> [a]
+Prelude Data.List> inter
+interact     intercalate  intersect    intersectBy  intersperse
+Prelude Data.List> intercalate ":" ["/path/to/dir0/", "/path/to/dir1"
+
+<interactive>:13:51: error:
+    parse error (possibly incorrect indentation or mismatched brackets)
+Prelude Data.List> intercalate ":" ["/path/to/dir0/", "/path/to/dir1"]
+"/path/to/dir0/:/path/to/dir1"
+Prelude Data.List> formatList s e sep xs = s ++ (inter
+interact     intercalate  intersect    intersectBy  intersperse
+Prelude Data.List> formatList s e sep xs = s ++ (inter
+interact     intercalate  intersect    intersectBy  intersperse
+Prelude Data.List> formatList s e sep xs = s ++ (inter
+interact     intercalate  intersect    intersectBy  intersperse
+Prelude Data.List> formatList s e sep xs = s ++ (intercalate sep (map show xs)) ++ e
+Prelude Data.List> formatList "(" ")" ", " [1,2,3,4,5]
+"(1, 2, 3, 4, 5)"
+Prelude Data.List> square x = x ^ 2
+Prelude Data.List> squareSum x y = square x + square y
+Prelude Data.List> squareSum 3 4
+25
+Prelude Data.List> f = let s = "hello world" in putStrLn $ "(" ++ s ++ ")"
+Prelude Data.List> f
+(hello world)
+Prelude Data.List> doubleIt x = x * 2
+Prelude Data.List> :type doubleIt
+doubleIt :: Num a => a -> a
+Prelude Data.List> addTen x = x + 10
+Prelude Data.List> :type addTen
+addTen :: Num a => a -> a
+Prelude Data.List> addTen 15
+25
+Prelude Data.List> addTen (doubleIt 5)
+20
+Prelude Data.List> (addTen . doubleIt) 5
+20
+Prelude Data.List> (addTen . doubleIt . doubleIt ) 5
+30
+Prelude Data.List> (addTen . doubleIt . doubleIt) 5
+30
+Prelude Data.List> (show. addTen . doubleIt . doubleIt) 5
+"30"
+Prelude Data.List> (show . addTen . doubleIt . doubleIt) 5
+"30"
+Prelude Data.List> :type shwo
+
+<interactive>:1:1: error:
+    • Variable not in scope: shwo
+    • Perhaps you meant ‘show’ (imported from Prelude)
+Prelude Data.List> :type show
+show :: Show a => a -> String
+Prelude Data.List> f = show . addTen . doubleIt
+Prelude Data.List> map f [10, 11, 12, 13, 14, 15]
+["30","32","34","36","38","40"]
+Prelude Data.List> \x -> x + 1 --lambda
+
+<interactive>:37:1: error:
+    • No instance for (Show (Integer -> Integer))
+        arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+Prelude Data.List> \x -> x + 1
+
+<interactive>:38:1: error:
+    • No instance for (Show (Integer -> Integer))
+        arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+Prelude Data.List> :{
+Prelude Data.List| parenthesizedWords s = unwords $ map paranthesizeWord (words s)
+Prelude Data.List|   where parenthesizeWord s = "(" ++ s ++ ")"
+Prelude Data.List|
+Prelude Data.List| :}
+
+<interactive>:40:38: error:
+    • Variable not in scope: paranthesizeWord :: String -> String
+    • Perhaps you meant one of these:
+        ‘parenthesizeWord’ (line 41), ‘parenthesizedWords’ (line 40)
+Prelude Data.List> :{
+Prelude Data.List| parenthesizedWords s = unwords $ map paranthesizeWord (words s)
+Prelude Data.List|   where paranthesizeWord s = "(" ++ s ++ ")"
+Prelude Data.List| :}
+Prelude Data.List> parenthesizedWords "We Love Haskell"
+"(We) (Love) (Haskell)"
+Prelude Data.List> parenthesizedWords s = unwords $ map (\s -> "(" ++ s ++ ")") (words s)
+Prelude Data.List> parenthesizedWords "We Love Haskell"
+"(We) (Love) (Haskell)"
+Prelude Data.List> parenthesizeWord = ("(" ++) . (++ ")")
+Prelude Data.List> parenthesizedWords "We Love Haskell"
+"(We) (Love) (Haskell)"
+Prelude Data.List> :type ("(" ++)
+("(" ++) :: [Char] -> [Char]
+Prelude Data.List> func x y = show x ++ show y
+Prelude Data.List> :type func
+func :: (Show a1, Show a2) => a1 -> a2 -> [Char]
+Prelude Data.List> func "aaa" "bbb"
+"\"aaa\"\"bbb\""
+Prelude Data.List> "aaa" `func` "bbb"
+"\"aaa\"\"bbb\""
+Prelude Data.List> leftSection = (5 `func`)
+Prelude Data.List> :type leftSection
+leftSection :: Show a2 => a2 -> [Char]
+Prelude Data.List> leftSection "6"
+"5\"6\""
+Prelude Data.List> rightSection = (`func` "five")
+Prelude Data.List> rightSection 6
+"6\"five\""
+Prelude Data.List> foo x y z = x ++ y ++ z
+Prelude Data.List> foo "aaa" "bbb" "ccc"
+"aaabbbccc"
+Prelude Data.List> :type foo
+foo :: [a] -> [a] -> [a] -> [a]
+Prelude Data.List> x = foo "aaa"
+Prelude Data.List> :type x
+x :: [Char] -> [Char] -> [Char]
+Prelude Data.List> y = foo 1
+
+<interactive>:68:1: error:
+    • Non type-variable argument in the constraint: Num [a]
+      (Use FlexibleContexts to permit this)
+    • When checking the inferred type
+        y :: forall a. Num [a] => [a] -> [a] -> [a]
+Prelude Data.List> y = x "bbb"
+Prelude Data.List> z = y "ccc"
+Prelude Data.List> z
+"aaabbbccc"
+Prelude Data.List> lessThanFive x = x < 5
+Prelude Data.List> filter lessThanFive [1..10]
+[1,2,3,4]
+Prelude Data.List> filter (\x -> x < 5) [1..10]
+[1,2,3,4]
+Prelude Data.List> filter (< 5) [1..10]
+[1,2,3,4]
+Prelude Data.List> filter (* 2) $ (< 5) [1..10]
+
+<interactive>:76:16: error:
+    • Couldn't match expected type ‘[Bool]’ with actual type ‘Bool’
+    • In the second argument of ‘($)’, namely ‘(< 5) [1 .. 10]’
+      In the expression: filter (* 2) $ (< 5) [1 .. 10]
+      In an equation for ‘it’: it = filter (* 2) $ (< 5) [1 .. 10]
+Prelude Data.List> (* 2) $ filter (< 5) [1..10]
+
+<interactive>:77:1: error:
+    • Non type-variable argument in the constraint: Num [a]
+      (Use FlexibleContexts to permit this)
+    • When checking the inferred type
+        it :: forall a. (Enum a, Num [a], Num a, Ord a) => [a]
+Prelude Data.List> map (* 2) $ filter (< 5) [1..100]
+[2,4,6,8]
